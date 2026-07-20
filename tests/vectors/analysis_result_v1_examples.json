@@ -1,0 +1,55 @@
+{
+  "description": "Esempi canonici serializzati di AnalysisResult (schema_version 1.0). Servono a validare che l'implementazione Python e il futuro porting Kotlin/Android producano/consumino esattamente lo stesso JSON. Non modificare i valori esistenti senza bump di schema_version.",
+  "examples": [
+    {
+      "name": "messaggio_sicuro_tier_rules",
+      "value": {
+        "schema_version": "1.0",
+        "message_id": "vec-001",
+        "tier": "rules",
+        "model_id": "mock-analyzer",
+        "model_version": "0.1.0",
+        "prompt_version": "n/a",
+        "timestamp": "2026-07-17T09:15:00+00:00",
+        "risk_level": 0,
+        "categories": [],
+        "latency_ms": 0.0
+      }
+    },
+    {
+      "name": "minaccia_esplicita_tier_fast_con_categoria",
+      "value": {
+        "schema_version": "1.0",
+        "message_id": "vec-002",
+        "tier": "fast",
+        "model_id": "unitary/multilingual-toxic-xlm-roberta",
+        "model_version": "unknown",
+        "prompt_version": "n/a",
+        "timestamp": "2026-07-17T09:17:12+00:00",
+        "risk_level": 3,
+        "categories": [
+          { "category": "threat", "confidence": 0.91 }
+        ],
+        "latency_ms": 15.5
+      }
+    },
+    {
+      "name": "caso_ambiguo_tier_slm_multi_categoria",
+      "value": {
+        "schema_version": "1.0",
+        "message_id": "vec-003",
+        "tier": "slm",
+        "model_id": "Qwen/Qwen2.5-1.5B-Instruct-GGUF",
+        "model_version": "Q4_K_M",
+        "prompt_version": "1.0",
+        "timestamp": "2026-07-17T09:20:00+00:00",
+        "risk_level": 2,
+        "categories": [
+          { "category": "exclusion", "confidence": 0.62 },
+          { "category": "insult", "confidence": 0.4 }
+        ],
+        "latency_ms": 17843.2
+      }
+    }
+  ]
+}

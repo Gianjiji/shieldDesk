@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shielddesk.local/schemas/report_v1.schema.json",
+  "title": "ProfessionalReport",
+  "description": "Payload JSON incluso nel bundle di report professionale (application/commands/export_professional_report.py). Il PDF nello stesso bundle è una rappresentazione leggibile dello stesso contenuto.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["report_schema_version", "generated_at", "redacted", "entry_count", "entries"],
+  "properties": {
+    "report_schema_version": { "type": "string", "const": "1.0" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "redacted": { "type": "boolean" },
+    "entry_count": { "type": "integer", "minimum": 0 },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["sender", "text", "analysis"],
+        "properties": {
+          "sender": {
+            "type": "string",
+            "description": "Nome reale o pseudonimo ('Persona N') se il report è redatto."
+          },
+          "text": { "type": "string" },
+          "analysis": { "$ref": "analysis_result_v1.schema.json" }
+        }
+      }
+    }
+  }
+}

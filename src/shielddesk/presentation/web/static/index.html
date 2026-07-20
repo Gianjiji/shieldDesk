@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#0a0f1c" />
+  <title>ShieldDesk</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%236b8cff' d='M16 2.5l10.5 3.8v7.4c0 6.6-4.4 11.1-10.5 14.3C9.9 24.8 5.5 20.3 5.5 13.7V6.3z'/%3E%3Cpath fill='none' stroke='%23fff' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round' d='M11 16.2l3.4 3.4 6.6-7'/%3E%3C/svg%3E" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32">
+          <defs>
+            <linearGradient id="sd-grad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#6b8cff" />
+              <stop offset="1" stop-color="#8a6cff" />
+            </linearGradient>
+          </defs>
+          <path fill="url(#sd-grad)" d="M16 2.5l10.5 3.8v7.4c0 6.6-4.4 11.1-10.5 14.3C9.9 24.8 5.5 20.3 5.5 13.7V6.3z" />
+          <path fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M11 16.2l3.4 3.4 6.6-7" />
+        </svg>
+      </span>
+      <div class="brand-text">
+        <strong>ShieldDesk</strong>
+        <span id="status-line" class="status-line">Connessione…</span>
+      </div>
+    </div>
+    <span class="offline-pill" title="L'app funziona solo in locale, nessun dato lascia il dispositivo">
+      <span class="dot"></span> Offline · locale
+    </span>
+  </header>
+
+  <nav class="tabbar" role="tablist" aria-label="Sezioni">
+    <button class="tab" role="tab" data-tab="dashboard" aria-selected="true">
+      <svg class="tab-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-8 9 8M5 9.5V20h5v-6h4v6h5V9.5"/></svg>
+      <span class="tab-label">Home</span>
+    </button>
+    <button class="tab" role="tab" data-tab="chat" aria-selected="false">
+      <svg class="tab-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-12.3 7.6L3 21l1.9-5.7A8.5 8.5 0 1 1 21 11.5z"/></svg>
+      <span class="tab-label">Analisi chat</span>
+    </button>
+    <button class="tab" role="tab" data-tab="vault" aria-selected="false">
+      <svg class="tab-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10.5" width="16" height="10" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg>
+      <span class="tab-label">Cassaforte</span>
+    </button>
+  </nav>
+
+  <main class="content">
+    <!-- ============================================ DASHBOARD -->
+    <section id="panel-dashboard" class="panel" role="tabpanel">
+      <div class="card hero">
+        <h1>Protezione dal cyberbullismo, tutta sul tuo dispositivo</h1>
+        <p class="muted">
+          ShieldDesk analizza i messaggi, conserva le prove in una cassaforte cifrata
+          e genera report professionali. Nessun dato viene mai inviato a internet.
+        </p>
+        <div class="stat-row">
+          <div class="stat"><span class="stat-num" id="stat-evidence">—</span><span class="stat-lbl">Prove in cassaforte</span></div>
+          <div class="stat"><span class="stat-num" id="stat-timeline">—</span><span class="stat-lbl">Messaggi analizzati ora</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Come funziona</h2>
+        <ol class="steps">
+          <li><strong>Analisi chat</strong> — incolla una conversazione (anche export WhatsApp) e ottieni una timeline del rischio, messaggio per messaggio.</li>
+          <li><strong>Cassaforte</strong> — salva come prova solo i messaggi che scegli tu. Restano cifrati a riposo con una catena di hash a prova di manomissione.</li>
+          <li><strong>Report</strong> — esporta un pacchetto PDF+JSON dentro uno ZIP cifrato, con o senza pseudonimizzazione.</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============================================ ANALISI CHAT -->
+    <section id="panel-chat" class="panel" role="tabpanel" hidden>
+      <div class="card">
+        <h2>Analizza una conversazione</h2>
+        <p class="muted">Incolla il testo della chat <strong>oppure carica un file .txt</strong> (es. export WhatsApp). Niente viene salvato finché non lo decidi tu.</p>
+        <textarea id="chat-input" rows="6" placeholder="[12/03/24, 21:04] Mario: Ci vediamo domani?&#10;[12/03/24, 21:05] Sconosciuto: Stai attento…"></textarea>
+        <div id="dropzone" class="dropzone">
+          <input id="file-input" type="file" accept=".txt,text/plain" hidden />
+          <span>Trascina qui un file <strong>.txt</strong>, o <button type="button" id="btn-pick-file" class="linklike">scegline uno</button></span>
+        </div>
+        <div class="btn-row">
+          <button id="btn-analyze" class="btn primary">Analizza</button>
+          <button id="btn-chat-export" class="btn ghost">Esporta report…</button>
+        </div>
+      </div>
+      <div id="chat-results" aria-live="polite"></div>
+    </section>
+
+    <!-- ============================================ CASSAFORTE -->
+    <section id="panel-vault" class="panel" role="tabpanel" hidden>
+      <div class="card">
+        <h2>Cassaforte delle prove</h2>
+        <p class="muted"><span id="vault-count">0</span> prove conservate e cifrate.</p>
+        <div class="btn-row">
+          <button id="btn-refresh" class="btn ghost">Aggiorna</button>
+          <button id="btn-process" class="btn">Processa notifiche simulate</button>
+          <button id="btn-demo" class="btn ghost">Aggiungi prova demo</button>
+          <button id="btn-vault-export" class="btn primary">Esporta report…</button>
+        </div>
+      </div>
+      <div id="vault-list" class="timeline" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <!-- Modale export -->
+  <div id="export-modal" class="modal" hidden>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="export-title">
+      <h3 id="export-title">Esporta report cifrato</h3>
+      <p class="muted">Il pacchetto (PDF + JSON + manifest) verrà messo dentro uno ZIP protetto da password.</p>
+      <label class="field">
+        <span>Password dello ZIP</span>
+        <input id="export-password" type="password" autocomplete="new-password" placeholder="Scegli una password robusta" />
+      </label>
+      <label class="check">
+        <input id="export-redact" type="checkbox" checked />
+        <span>Pseudonimizza i nomi (consigliato per la condivisione)</span>
+      </label>
+      <div class="btn-row end">
+        <button id="btn-export-cancel" class="btn ghost">Annulla</button>
+        <button id="btn-export-confirm" class="btn primary">Esporta</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modale focus contesto: 5 messaggi prima + 5 dopo -->
+  <div id="context-modal" class="modal" hidden>
+    <div class="modal-card wide" role="dialog" aria-modal="true" aria-labelledby="context-title">
+      <div class="modal-head">
+        <h3 id="context-title">Contesto del messaggio</h3>
+        <button id="btn-context-close" class="btn ghost" aria-label="Chiudi">✕</button>
+      </div>
+      <p class="muted">I 5 messaggi precedenti e i 5 successivi, per leggere il messaggio nel suo contesto.</p>
+      <div id="context-list" class="timeline"></div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" hidden></div>
+
+  <script src="/app.js"></script>
+</body>
+</html>

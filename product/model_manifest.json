@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "model_id": "unitary/multilingual-toxic-xlm-roberta",
+  "source_url": "https://huggingface.co/unitary/multilingual-toxic-xlm-roberta",
+  "license": "apache-2.0",
+  "license_verified_on": "2026-07-17",
+  "tier": "fast",
+  "labels": [
+    "toxic"
+  ],
+  "file": "model.onnx",
+  "sha256": "e706d2078b2fdfb1fc5c5457b36663254bd4568df758594ec3d169f0ae153a77",
+  "generated_at": "2026-07-17T21:21:29.096324+00:00",
+  "notes": "Soglie di RiskLevel non calibrate (vedi infrastructure/ai/onnx_analyzer.py). Verificato su un piccolo smoke-set italiano, non su un benchmark statistico."
+}

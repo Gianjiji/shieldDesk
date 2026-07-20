@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0",
+  "model_id": "Qwen/Qwen2.5-1.5B-Instruct-GGUF",
+  "source_url": "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct-GGUF",
+  "license": "apache-2.0",
+  "license_verified_on": "2026-07-17",
+  "tier": "slm",
+  "quantization": "Q4_K_M",
+  "file": "qwen2.5-1.5b-instruct-q4_k_m.gguf",
+  "sha256": "6a1a2eb6d15622bf3c96857206351ba97e1af16c30d7a74ee38970e434e9407e",
+  "generated_at": "2026-07-17T21:21:29.749908+00:00",
+  "notes": "Modello ufficiale Qwen, non una quantizzazione di terze parti."
+}

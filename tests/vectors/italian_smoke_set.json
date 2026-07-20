@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "description": "Set curato minimo (non statisticamente significativo) per verificare che la pipeline ONNX produca segnali sensati sull'italiano. Frasi scritte a mano per questo progetto, non dati reali di minori. Vedi ANALYSIS.md §K per il piano di un dataset di benchmark vero.",
+  "language": "it",
+  "cases": [
+    {"id": "it-safe-1", "text": "Ci vediamo domani per il compito di matematica?", "expected_risk_at_least": "SAFE", "expected_risk_at_most": "LOW"},
+    {"id": "it-safe-2", "text": "Grazie mille per l'aiuto di ieri, sei stato gentilissimo", "expected_risk_at_least": "SAFE", "expected_risk_at_most": "LOW"},
+    {"id": "it-safe-3", "text": "Che bella la partita di ieri sera, complimenti alla squadra", "expected_risk_at_least": "SAFE", "expected_risk_at_most": "LOW"},
+    {"id": "it-insult-1", "text": "Sei proprio uno stupido idiota, nessuno ti sopporta", "expected_risk_at_least": "MEDIUM", "expected_risk_at_most": "CRITICAL"},
+    {"id": "it-insult-2", "text": "Fai schifo, sei la persona più patetica che conosca", "expected_risk_at_least": "MEDIUM", "expected_risk_at_most": "CRITICAL"},
+    {"id": "it-exclusion-1", "text": "Nessuno di noi ti vuole più nel gruppo, sparisci", "expected_risk_at_least": "LOW", "expected_risk_at_most": "CRITICAL"},
+    {"id": "it-threat-1", "text": "Stai attento perché ti aspetto fuori da scuola e te la faccio pagare", "expected_risk_at_least": "MEDIUM", "expected_risk_at_most": "CRITICAL"},
+    {"id": "it-threat-2", "text": "Ti ammazzo se lo dici a qualcuno", "expected_risk_at_least": "HIGH", "expected_risk_at_most": "CRITICAL"},
+    {"id": "it-irony-1", "text": "Ah bravo, proprio un genio come al solito (non è un complimento)", "expected_risk_at_least": "SAFE", "expected_risk_at_most": "MEDIUM"},
+    {"id": "it-slang-1", "text": "Raga oggi la prof era una tostissima, che ansia", "expected_risk_at_least": "SAFE", "expected_risk_at_most": "LOW"}
+  ]
+}

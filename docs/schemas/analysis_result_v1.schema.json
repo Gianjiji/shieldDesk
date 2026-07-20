@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shielddesk.local/schemas/analysis_result_v1.schema.json",
+  "title": "AnalysisResult",
+  "description": "Esito dell'analisi di un IncomingMessage (application/dto/analysis_result_v1.py). Contratto condiviso tra il core Python e il futuro porting Android/Kotlin.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "message_id",
+    "tier",
+    "model_id",
+    "model_version",
+    "prompt_version",
+    "timestamp",
+    "risk_level",
+    "categories",
+    "latency_ms"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "1.0" },
+    "message_id": { "type": "string", "minLength": 1 },
+    "tier": { "type": "string", "enum": ["rules", "fast", "slm"] },
+    "model_id": { "type": "string", "minLength": 1 },
+    "model_version": { "type": "string" },
+    "prompt_version": { "type": "string" },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "risk_level": { "type": "integer", "minimum": 0, "maximum": 4 },
+    "categories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["category", "confidence"],
+        "properties": {
+          "category": {
+            "type": "string",
+            "enum": ["insult", "exclusion", "threat", "blackmail", "hate", "self_harm"]
+          },
+          "confidence": { "type": "number", "minimum": 0.0, "maximum": 1.0 }
+        }
+      }
+    },
+    "latency_ms": { "type": "number", "minimum": 0 }
+  }
+}

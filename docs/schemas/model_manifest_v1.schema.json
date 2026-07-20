@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shielddesk.local/schemas/model_manifest_v1.schema.json",
+  "title": "ModelManifest",
+  "description": "Manifest di un modello AI importato (ONNX o GGUF), con hash di verifica (ADR-011). Generato da scripts/generate_model_manifest.py e scripts/generate_slm_model_manifest.py.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "model_id",
+    "source_url",
+    "license",
+    "license_verified_on",
+    "tier",
+    "file",
+    "sha256",
+    "generated_at"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "1.0" },
+    "model_id": { "type": "string", "minLength": 1 },
+    "source_url": { "type": "string", "format": "uri" },
+    "license": { "type": "string", "minLength": 1 },
+    "license_verified_on": { "type": "string", "format": "date" },
+    "tier": { "type": "string", "enum": ["fast", "slm"] },
+    "labels": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Solo per tier=fast: etichette prodotte dal classificatore ONNX."
+    },
+    "quantization": {
+      "type": "string",
+      "description": "Solo per tier=slm: livello di quantizzazione GGUF (es. Q4_K_M)."
+    },
+    "file": { "type": "string", "minLength": 1 },
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "notes": { "type": "string" }
+  }
+}

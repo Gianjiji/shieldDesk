@@ -1,0 +1,33 @@
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+*.egg-info/
+dist/
+build/
+.coverage
+htmlcov/
+
+# Dati sensibili e modelli — mai versionati
+models/*
+!models/.gitkeep
+*.db
+*.sqlite
+*.sqlite3
+.shielddesk_vault/
+reports/
+.env
+*.log
+
+# IDE
+.vscode/
+.idea/
+.DS_Store
+
+# Stato locale di sessione/plugin (non è codice di progetto)
+.claude/
+
+# Config tool locale (Serena)
+.serena/
