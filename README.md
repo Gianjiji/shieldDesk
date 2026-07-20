@@ -20,7 +20,6 @@ Nessuna funzionalità dipende da rete, cloud o telemetria: l'assenza di accessi 
 8. [Test, lint e type checking](#test-lint-e-type-checking)
 9. [Sicurezza e privacy](#sicurezza-e-privacy)
 10. [Mappa della documentazione](#mappa-della-documentazione)
-11. [Licenza](#licenza)
 
 ---
 
