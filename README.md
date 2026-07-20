@@ -231,9 +231,6 @@ Tutte le fasi della roadmap originale (`ANALYSIS.md` §M, Fasi 0-10) sono state 
 
 | Documento | Contenuto |
 |---|---|
-| `ANALYSIS.md` | Analisi di Fase 0: fattibilita, assunzioni, 11 ADR, threat model, dipendenze, strategia AI, piano spike Windows, roadmap, domande bloccanti |
-| `CLAUDE.md` | Convenzioni di sviluppo, principi architetturali, regole di privacy/sicurezza, attivita vietate, Definition of Done |
-| `prompt.md` | Il mandato originale del progetto |
 | `docs/phase-1-report.md` ... `phase-10-report.md` | Report di fine fase: changelog, bug trovati e risolti, rischi residui, istruzioni di verifica manuale (la cronologia reale del progetto) |
 | `docs/evidence-record-refactor.md` | Refactor post-Fase 10 che introduce `EvidenceRecord` come unita persistita e sblocca il report professionale dalla cassaforte storica |
 | `docs/code-review-fixes.md` | Revisione a freddo finale: bug reali trovati (fallback silenzioso del vault, crash del client SLM) e corretti con test di regressione |
