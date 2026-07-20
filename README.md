@@ -19,9 +19,8 @@ Nessuna funzionalità dipende da rete, cloud o telemetria: l'assenza di accessi 
 7. [Architettura in breve](#architettura-in-breve)
 8. [Test, lint e type checking](#test-lint-e-type-checking)
 9. [Sicurezza e privacy](#sicurezza-e-privacy)
-10. [Stato del progetto e limiti noti](#stato-del-progetto-e-limiti-noti)
-11. [Mappa della documentazione](#mappa-della-documentazione)
-12. [Licenza](#licenza)
+10. [Mappa della documentazione](#mappa-della-documentazione)
+11. [Licenza](#licenza)
 
 ---
 
@@ -207,23 +206,6 @@ Note sulla suite:
 - **Modelli AI**: import solo da file locale con verifica hash rispetto ai manifest.
 - **Audit dipendenze**: eseguito in Fase 9 con `pip-audit`; `cryptography` aggiornata a 48.x; i rischi residui accettati (in particolare `transformers` 4.x) sono motivati caso per caso in `docs/phase-9-report.md`.
 - **Threat model**: iniziale in `ANALYSIS.md` §I, riesaminato a fine Fase 9 con lo stato reale delle mitigazioni.
-
----
-
-## Stato del progetto e limiti noti
-
-Tutte le fasi della roadmap originale (`ANALYSIS.md` §M, Fasi 0-10) sono state eseguite o esplicitamente rimandate, ciascuna con un report di fine fase. Limiti dichiarati:
-
-- **Fase 6 (integrazione notifiche Windows) non eseguita**: richiede lo spike su hardware Windows reale descritto in `ANALYSIS.md` §L (l'API WinRT `UserNotificationListener` da processo Python non pacchettizzato e il potenziale blocker principale del progetto). Oggi l'unica sorgente notifiche e il `FakeNotificationAdapter`; l'ingresso reale dei dati e l'analisi chat manuale.
-- **Packaging, firma e installer (parte di Fase 9) rimandati**: la scelta del packager dipende dall'esito dello stesso spike Windows (ADR-009 vieta di scegliere PyInstaller per default).
-- **Refinement contestuale SLM sui casi "insulto reale"**: la cascata ONNX → SLM contestuale è cablata e riduce i falsi positivi (es. minaccia scherzosa tra amici → SAFE), ma su un messaggio che contiene un insulto esplicito (es. "sei scemo") il modello da 1.5B lo segnala comunque, a prescindere dal contesto. Le soglie ONNX restano non calibrate (§K).
-- **Soglie del classificatore ONNX non calibrate** e smoke-set italiano minuscolo (10 frasi): serve un benchmark statistico vero.
-- **Parser WhatsApp limitato alla variante italiana** dei formati iOS/Android; righe non riconosciute vengono scartate silenziosamente (possibile fonte di falsi negativi di parsing).
-- **Nessuna migrazione dati** per i vault creati prima del refactor `EvidenceRecord`: un database precedente non e piu decodificabile (rottura intenzionale e documentata, nessun dato reale in gioco).
-- **UI web responsive**: l'interfaccia è ora un'applicazione web servita in locale (FastAPI + SPA statica, nessuna dipendenza CDN), utilizzabile dal browser di qualunque dispositivo. Sostituisce — e **rimuove** — la precedente UI QML/PySide6, che era stata verificata solo headless (`QT_QPA_PLATFORM=offscreen`) e mai su un display reale; con essa è stata tolta anche la dipendenza `pyside6`. **Sicurezza**: il server ascolta solo su host locali e valida l'header `Host` (difesa da DNS-rebinding: un sito malevolo aperto nel browser non può leggere le prove rebindando su 127.0.0.1); l'export minimale tratta l'input come nome file confinato in `reports/` (niente path traversal). Il tier SLM riceve testo non fidato ma la grammatica GBNF ne vincola l'output all'enum e il system prompt lo tratta come dato: un test di prompt-injection col modello reale verifica che una minaccia con iniezione non venga declassata a SAFE.
-- **Auto-reply impossibile su desktop** per assenza di API: il fallback previsto e la risposta suggerita da copiare; l'auto-reply reale arrivera con il porting Android.
-- **Porting Android**: solo specifiche, mapping Kotlin e backlog (`docs/android/`), nessun codice Kotlin scritto; tre domande aperte richiedono uno spike Android.
-- **Licenza**: placeholder "tutti i diritti riservati" in attesa della decisione bloccante di `ANALYSIS.md` §O.2.
 
 ---
 
