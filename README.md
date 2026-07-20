@@ -205,7 +205,6 @@ Note sulla suite:
 - **Chiavi**: derivazione Argon2id con parametri versionati; nessuna chiave hard-coded; envelope encryption con recovery key.
 - **Modelli AI**: import solo da file locale con verifica hash rispetto ai manifest.
 - **Audit dipendenze**: eseguito in Fase 9 con `pip-audit`; `cryptography` aggiornata a 48.x; i rischi residui accettati (in particolare `transformers` 4.x) sono motivati caso per caso in `docs/phase-9-report.md`.
-- **Threat model**: iniziale in `ANALYSIS.md` §I, riesaminato a fine Fase 9 con lo stato reale delle mitigazioni.
 
 ---
 
@@ -220,9 +219,3 @@ Note sulla suite:
 | `docs/android/` | Specifiche portabili, mapping Python-Kotlin tipo per tipo, backlog del porting |
 | `docs/sbom/` | Software Bill of Materials (CycloneDX) con istruzioni di rigenerazione |
 | `docs/adr/`, `docs/spikes/` | Placeholder vuoti per scelta: le ADR vivono in `ANALYSIS.md` §E; i report di spike non esistono perche gli spike (Windows/Android) sono bloccati dall'assenza di hardware dedicato |
-
----
-
-## Licenza
-
-Placeholder proprietario ("tutti i diritti riservati") in attesa di decisione esplicita — vedi `LICENSE` e la domanda aperta in `ANALYSIS.md` §O.2.
